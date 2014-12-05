@@ -18,7 +18,7 @@ Primero procedemos a descargarnos la aplicacion desde este repositorio en el dir
 Debemos descargar el proyecto y lo descomprimimos alli
 Luego procedemos a la configuracion basica del virtualhost
 
-    # sudo nano /etc/apache2/sites-available/sitio.dominio
+    sudo nano /etc/apache2/sites-available/sitio.dominio
 
 Alli colocamos el siguiente codigo modificando lo que es de cada quien:
 
