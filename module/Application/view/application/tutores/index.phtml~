@@ -1,0 +1,111 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA [TUTORES]");
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace.min.css');
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace-responsive.min.css');
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace-skins.min.css');
+$this->headScript()->prependFile($this->basePath() . '/css/assets/js/ace-elements.min.js');
+$this->headScript()->prependFile($this->basePath() . '/css/assets/js/ace.min.js');
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+?>
+<div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                        <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="<?php echo $this->url('home') ?>">Home</a>
+
+                                <span class="divider">
+                                        <i class="icon-angle-right arrow-icon"></i>
+                                </span>
+                        </li>
+                        <li class="active">Lista</li>
+                </ul><!--.breadcrumb-->
+
+                <div class="nav-search" id="nav-search">
+                </div><!--#nav-search-->
+        </div>
+
+        <div class="page-content">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!--PAGE CONTENT BEGINS-->
+                        <h1>Lista de Tutores</h1>
+                        <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                    <tr>
+                                            <th>Cedula</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo de Tutor</th>
+                                            <th></th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                    <?php
+		foreach($lista as $resul) :
+			$item = $resul["ID"];
+			echo "<tr>";
+			echo "<td>".$resul["CEDULA"]."</td>";
+			echo "<td>".$resul["NOMBRES"]."</td>";
+			if($resul["TIPO_TUTOR"] == 1){
+				echo '<td>
+    					<span class="label label-info">
+	    					Metodologico
+	    				</span>
+	    			  </td>';
+			}else{
+				echo '<td>
+    					<span class="label label-info">
+	    					Academico
+	    				</span>
+	    			  </td>';
+			}
+			echo '<td>
+                                    <div class="hidden-phone visible-desktop action-buttons">
+                                            <a class="blue" href="#">
+                                                    <i class="icon-zoom-in bigger-130"></i>
+                                            </a>
+
+                                            <a class="green" href="#">
+                                                    <i class="icon-pencil bigger-130"></i>
+                                            </a>
+                                            ';
+                        ?>
+                                
+                                            <a class="red" href="<?php echo $this->url('tutores',array('action' => 'eliminar','id' => $resul["ID"])); ?> ">
+                                                    <i class="icon-trash bigger-130"></i>
+                                            </a>
+                            <?php
+                                    echo '</div>
+                                </td>';
+                        echo '</tr>';
+		endforeach;
+	?>
+
+                                       
+                                 
+                            </tbody>
+                        </table>
+                        <h3 class="header smaller lighter green">Acciones</h3>
+
+                            <p>
+                                    <a href="<?php echo $this->url('tutores',array('action' => 'add')) ?>" class="btn btn-app btn-success" >
+                                            <i class="icon-plus-sign bigger-230"></i>
+                                            Agregar
+
+                                    </a>
+                            </p>
+                                                                
+                    </div>
+                </div>
+        </div><!--/.page-content-->
+
+
+</div><!--/.main-content-->
+

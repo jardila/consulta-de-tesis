@@ -1,0 +1,9 @@
+<?php $this->headTitle("Vista de Perfil de Usuario");?>
+<div class="row2">Usuario conectado: &nbsp;<a href="<?php echo $this->url('zfcuser') ?>" title="Ver perfil"><p>&nbsp;<?php echo $this->zfcUserDisplayName() ?>&nbsp;</p></a></div>
+<h1>Vista de Perfil de Usuario</h1><hr>
+<div style="float:left; padding-right:16px;"><?php echo $this->gravatar($this->zfcUserIdentity()->getEmail()) ?></div>
+<h3>Nombre real: <?php echo $this->zfcUserDisplayName() ?>!</h3>
+<h4>Nombre de usuario: <?php echo $usuario ?></h4>
+<h4>Correo Electr&oacute;nico: <?php echo $emailuser ?></h4>
+<a href="<?php echo $this->url('zfcuser/logout') ?>">Cerrar Sesi&oacute;n</a>
+<div style="clear:both;"></div>

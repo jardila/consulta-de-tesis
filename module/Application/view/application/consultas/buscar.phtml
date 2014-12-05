@@ -1,0 +1,158 @@
+<?php
+    $registros = count($lista2);
+    $clase = "success";
+    if($registros == 0){
+        $clase = "danger";
+    }
+?>
+<div class="main-content"> 
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                Consulta de Tesis
+
+            </h1>
+        </div>
+        <div class="row-fluid">
+            <div class="col-xs-12">
+                <div class="alert alert-block alert-<?php echo $clase; ?>">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <i class="icon-remove"></i>
+                    </button>
+                    <spam class="dark-opaque">Criterios de Búsqueda [ </spam>
+                    Título: <?php echo $title; ?> ] 
+                    La consulta ha arrojado un total de: '<strong id="contador"><?php echo $registros; ?></strong>' registros
+                </div>
+                <?php $id_control; ?>
+                <?php $id_control_old = ""; ?>
+                <?php foreach($lista2 as $resul) :  ?>
+                <?php  
+                    $id_control = $resul["ID"];
+                    if($id_control != $id_control_old){
+                ?>
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Titulo </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="username"><?php echo $resul["TITULO"]; ?></span>
+                            </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Especialidad </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="country"><?php echo $resul["ESPECIALIDAD"]; ?></span>
+                                    
+                            </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Autores </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="age"><?php echo $resul["AUTORES"]; ?></span>
+                            </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Año </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="signup"><?php echo $resul["ANO"]; ?></span>
+                            </div>
+                    </div>
+                    
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Tutor Teórico </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="signup"><?php echo $resul["NOMBRE_TUTOR_T"]; ?></span>
+                            </div>
+                    </div>
+                    
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Tutor Metodológico </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="signup"><?php echo $resul["NOMBRE_TUTOR_M"]; ?></span>
+                            </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                            <div class="profile-info-name"> Resumen </div>
+
+                            <div class="profile-info-value">
+                                    <span class="editable" id="login"><?php echo $resul["RESUMEN"]; ?></span>
+                            </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> Documentos disponibles </div>
+                        <div class="profile-info-value">
+                            <span class="editable" id="about">
+                                <?php
+                                if($resul["T_P"] == 1){
+                                    if($resul["COMPLETO"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["COMPLETO"].'">'
+                                                . '<span class="label label-success arrowed">Introduccion</spam> '
+                                                . '</a> ';
+                                    }
+                                }else{
+                                    if($resul["INTRO"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["INTRO"].'">'
+                                                . '<span class="label label-success arrowed">Introduccion</spam> '
+                                                . '</a> ';
+                                    }
+                                    if($resul["CAP1"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["CAP1"].'">'
+                                                . '<span class="label label-success arrowed">Capitulo 1</spam> '
+                                                . '</a> ';
+                                    }
+                                    if($resul["CAP2"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["CAP2"].'">'
+                                                . '<span class="label label-success arrowed">Capitulo 2</spam> '
+                                                . '</a> ';
+                                    }
+                                    if($resul["CAP3"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["CAP3"].'">'
+                                                . '<span class="label label-success arrowed">Capitulo 3</spam> '
+                                                . '</a> ';
+                                    }
+                                    if($resul["CAP4"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["CAP4"].'">'
+                                                . '<span class="label label-success arrowed">Capitulo 4</spam> '
+                                                . '</a> ';
+                                    }
+                                    if($resul["CONCLUSION"] != ""){
+                                        echo '<a target="_balnk" href="'.$resul["CONCLUSION"].'">'
+                                                . '<span class="label label-success arrowed">Conclusion</spam> '
+                                                . '</a> ';
+                                    }
+                                }
+                                ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <?php
+                    }else{ $registros--;}
+                    $id_control_old = $resul["ID"];
+                ?>
+                <?php endforeach; ?>
+            </div>
+                <a href="<?php echo $this->url('consultas') ?>" class="btn btn-large btn-info">
+                    Regresar
+                </a>
+                <?php 
+                    echo '<script>$("#contador").text("'.$registros.'");</script>';
+                ?>
+        </div>
+    </div>
+</div>
+<script>
+    $('[data-rel=tooltip]').tooltip();
+    $('[data-rel=popover]').popover({html:true});
+</script>

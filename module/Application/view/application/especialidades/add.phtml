@@ -1,0 +1,84 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA [ESPECIALIDAD]");
+
+?>
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+        <ul class="breadcrumb">
+                        <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="<?php echo $this->url('home') ?>">Home</a>
+                        </li>
+
+                        <li>
+                                <a href="<?php echo $this->url('epecialidades') ?>">Especialidades</a>
+                        </li>
+                        <li class="active">Agregar</li>
+                </ul><!--.breadcrumb-->
+        </div>
+
+        <div class="page-content">
+            <div class="page-header">
+                <h1>
+                    Ingreso de Especialidad
+                    <small>
+                        <i class="icon-double-angle-right"></i>
+                        En este modulo podemos agregar una Especialidad a la Base de Datos
+                    </small>
+                </h1>
+            </div><!-- /.page-header -->
+                <div class="row-fluid">
+                    <div class="col-xs-12">
+                        <?php
+                                if ($msg != ""){
+                                        echo '<div class="alert alert-'.$satis.'">',$msg.'</div>';
+                                }
+                        ?>
+                        <!--PAGE CONTENT BEGINS-->
+
+                        <h3 class="header smaller lighter red">
+                                Datos Básicos
+                        </h3>
+                        <br>
+                        <form method="post" role="form" class="form-horizontal" action="<?php echo $this->url('epecialidades',array('action' => 'add')) ?>" >
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Nombre de la Especialidad:</label>
+                                
+                                <div class="col-sm-9">
+                                    <input class="col-xs-12 col-sm-8" type="text" name="nombre" id="form-field-1" placeholder="nombre especialidad" required/>
+                                </div>
+                            </div>
+
+                            <div class="form-actions center">
+                                <input type="submit" class="btn btn-success" value="Guardar"/>
+                                <a class="btn btn-small btn-warning" href="<?php echo $this->url('epecialidades') ?>">
+                                        Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div><!--/.page-content-->
+
+
+</div><!--/.main-content-->
+        <script src="/css/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="/css/assets/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="/css/assets/js/chosen.jquery.min.js"></script>
+        <script src="/css/assets/js/fuelux/fuelux.spinner.min.js"></script>
+        <script src="/css/assets/js/date-time/daterangepicker.min.js"></script>
+        <script src="/css/assets/js/date-time/moment.min.js"></script>
+        <script src="/css/assets/js/date-time/bootstrap-timepicker.min.js"></script>
+        <script src="/css/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+        <script src="/css/assets/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/css/assets/js/jquery.knob.min.js"></script>
+        <script src="/css/assets/js/jquery.autosize-min.js"></script>
+        <script src="/css/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+        <script src="/css/assets/js/jquery.maskedinput.min.js"></script>
+        <script src="/css/assets/js/bootstrap-tag.min.js"></script>
+<script>
+    $(<?php echo '"#'.$this->activo.'"'; ?>).addClass("active");
+</script>

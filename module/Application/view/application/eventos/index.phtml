@@ -1,0 +1,199 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA [Eventos]");
+
+
+?>
+<script>
+	var iden = "";
+	var nombre = "";
+</script>
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="<?php echo $this->url('home') ?>">Home</a>
+            </li>
+            <li class="active">Eventos</li>
+        </ul><!--.breadcrumb-->
+
+        <div class="nav-search" id="nav-search">
+        </div><!--#nav-search-->
+    </div>
+    <div class="page-content">
+         <div class="page-header">
+            <h1>
+                Auditoría de Eventos por Usuarios
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    En este modulo se visualizan los eventos registrados por los usuarios
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row-fluid">
+            <div class="col-xs-12">
+                <?php
+                        if ($msg != ""){
+                                echo '<div class="alert alert-'.$satis.'">',$msg.'
+                                <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                                </div>';
+                        }
+                ?>
+                <div class="col-sm-11 widget-container-span">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
+                            <h4 class="lighter">Eventos Registrados</h4>
+
+                            <div class="widget-toolbar no-border">
+                                <ul class="nav nav-tabs" id="myTab2">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#home2">Listado</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#profile2">Gráficos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main padding-12 no-padding-left no-padding-right">
+                                <div class="tab-content padding-4">
+                                    <div id="home2" class="tab-pane in active">
+                                        <div class="slim-scroll" data-height="400">
+                                            <!-- Aqui empieza la tabla -->
+                                            <div class="col-xs-12 col-sm-12 widget-container-span">
+                                                <div class="widget-box">
+                                                    <div class="widget-header header-color-green3">
+                                                        <h5 class="bigger lighter">
+                                                            <i class="icon-table"></i>
+                                                            Eventos
+                                                        </h5>
+                                                    </div>
+
+                                                    <div class="widget-body">
+                                                        <div class="widget-main no-padding">
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead class="thin-border-bottom">
+                                                                    <tr>
+                                                                        <th><i class="icon-gear"></i>Acción</th>
+                                                                        <th><i class="icon-user"></i>Usuario</th>
+                                                                        <th>Modulo</th>
+                                                                        <th>Id del elemento</th>
+                                                                        <th>Descripción</th>
+                                                                        <th>Fecha</th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <?php
+                                                                        $i = 0;
+                                                                        foreach($lista as $resul) :
+                                                                            $item = $resul["ID"];
+                                                                            echo "<tr>";
+                                                                            echo "<td>".$resul["EVNT_ACCION"]."</td>";
+                                                                            echo "<td>".$resul["EVNT_USER"]."</td>";
+                                                                            echo "<td>".$resul["EVNT_MODULO"]."</td>";
+                                                                            echo "<td>".$resul["EVNT_ID_ELEMENT"]."</td>";
+                                                                            echo "<td>".$resul["EVNT_DESCRI"]."</td>";
+                                                                            echo "<td>".$resul["EVNT_FECHA"]."</td>";
+                                                                            echo '</tr>';
+                                                                            $i++;
+                                                                        endforeach;
+                                                                    ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /span -->
+                                        </div><!-- /row -->
+                                    </div>
+                                   
+                                    <div id="profile2" class="tab-pane">
+                                        <div class="slim-scroll" data-height="400">
+                                            
+                                            <!-- Aqui empieza el grafico -->
+                                            
+                                            
+                                            <div id="container-chart" style="min-width: 600px; height: 400px; margin: 0 auto"></div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.page-content-->
+
+
+</div><!--/.main-content-->
+        <script src="/css/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="/css/assets/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="/css/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="/Highcharts/highcharts.js"></script>
+        <script src="/Highcharts/modules/exporting.js"></script>
+<script>
+    $(<?php echo '"#'.$this->activo.'"'; ?>).addClass("active");
+
+    $(".alert").alert();
+    $('[data-rel=tooltip]').tooltip();
+    $('[data-rel=popover]').popover({html:true});
+    var datos;
+    <?php
+    $porc = 0;
+    $datos = "";
+    foreach($lista2 as $resul2) :
+        $tot_user = $resul2["TOTAL"];
+        $nom_user = $resul2["EVNT_USER"];
+        $porc = ($tot_user / $i) * 100;
+        $datos .= "['$nom_user',$porc],";
+    endforeach;
+    $datos = substr($datos, 0, -1);
+    $datos = "data: [".$datos."]";
+    ?>
+    $(function () {
+        $('#container-chart').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Eventos registrados por usuario'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> de las acciones'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'El usuario ha ejecutado',
+                <?php
+                    echo $datos;
+                ?>
+            }]
+        });
+    });
+       
+</script>
+
+
+
+

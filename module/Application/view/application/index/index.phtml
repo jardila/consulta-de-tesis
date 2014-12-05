@@ -1,0 +1,58 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA");
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+?>
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+        <ul class="breadcrumb">
+            <li class="active">
+                <i class="icon-home home-icon"></i>
+                Home
+            </li>
+        </ul><!--.breadcrumb-->
+
+        <div class="nav-search" id="nav-search">
+        </div><!--#nav-search-->
+    </div>
+
+    <div class="page-content">
+        <div class="row-fluid">
+            <div class="col-xs-3">
+                <!--PAGE CONTENT BEGINS-->
+                <img src="<?php echo $this->basePath().'/img/img_1004581.png'; ?>" />
+            </div>
+            <div class="col-xs-8">
+                <div class="page-header">
+                    <h1>
+                        Sistema para el registro y consulta de Tesis de Grado
+                    </h1>
+                </div><!-- /.page-header -->
+                <h3>Bienvenido</h3>
+                <p>
+                    Este Sistema ha sido desarrollado para facilitar el acceso a las tesis de grado a los estudiantes de la 
+                    Universidad Nacional Experimental de la Fuerza Armada Nacional, como estimulo para mejorar su experiencia
+                    en los procesos de investigación y/o recolección de datos que complementen su Trabajo Especial de Grado.
+                </p>
+                <p>
+                    
+                </p>
+            </div>
+
+        </div>
+    </div><!--/.page-content-->
+
+</div><!--/.main-content-->
+<script>
+    $(<?php echo '"#'.$this->activo.'"'; ?>).addClass("active");
+    $('[data-rel=tooltip]').tooltip();
+    $('[data-rel=popover]').popover({html:true});
+</script>

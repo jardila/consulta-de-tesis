@@ -1,0 +1,103 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA [TUTORES]");
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace.min.css');
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace-responsive.min.css');
+$this->headLink()->prependStylesheet($this->basePath() . '/css/assets/css/ace-skins.min.css');
+$this->headScript()->prependFile($this->basePath() . '/css/assets/js/ace-elements.min.js');
+$this->headScript()->prependFile($this->basePath() . '/css/assets/js/ace.min.js');
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+ foreach($lista as $resul) :
+	$item 		= $resul['ID'];
+	$cedula 	= $resul['CEDULA'];
+	$nombres 	= $resul['NOMBRES'];
+	$estado 	= $resul['TIPO_TUTOR'];
+endforeach;
+
+?>
+<div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                        <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="<?php echo $this->url('home') ?>">Home</a>
+
+                                <span class="divider">
+                                        <i class="icon-angle-right arrow-icon"></i>
+                                </span>
+                        </li>
+
+                        <li>
+                                <a href="<?php echo $this->url('tutores') ?>">Tutores</a>
+
+                                <span class="divider">
+                                        <i class="icon-angle-right arrow-icon"></i>
+                                </span>
+                        </li>
+                        <li class="active">Editar</li>
+                </ul><!--.breadcrumb-->
+
+                <div class="nav-search" id="nav-search">
+                </div><!--#nav-search-->
+        </div>
+
+        <div class="page-content">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <?php
+                                if ($msg != ""){
+                                        echo '<div class="alert alert-'.$satis.'">',$msg.'</div>';
+                                }
+                        ?>
+                        <!--PAGE CONTENT BEGINS-->
+
+                        <div class="widget-box">
+                            <div class="widget-header">
+                                    <h4>Ingreso de Tutores</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main no-padding">
+                                    <br>
+                                    <form method="post" class="form-horizontal" action="<?php echo $this->url('tutores',array('action' => 'add')) ?>" >
+                                        <div class="control-group">
+                                            <label class="control-label" for="form-field-2">Cedula:</label>
+                                            <div class="controls">
+                                                <input type="text" name="cedula" value="<?php echo $cedula; ?>" id="form-field-2" placeholder="Cedula del tutor" required />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="form-field-1">Nombre del Tutor:</label>
+                                            <div class="controls">
+                                                <input type="text" name="nombre" value="<?php echo $cedula; ?>" id="form-field-1" placeholder="Nombre del tutor" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="form-field-select-1">Tipo de Tutor:</label>
+                                            <div class="controls">
+                                                <select id="form-field-select-1" name="tipo">
+                                                    <option value="1" />Metodológico
+                                                    <option value="2" />Académico
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions center">
+                                            <input type="submit" class="btn btn-success" value="Guardar"/>
+                                            <a href="<?php echo $this->url('tutores') ?>" class="btn btn-small btn-warning">
+                                                    Cancelar
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div><!--/.page-content-->
+
+
+</div><!--/.main-content-->

@@ -1,0 +1,134 @@
+<?php
+$this->headTitle("Registro y Consulta de Tesis -- UNEFA [ESPECIALIDADES]");
+$this->headScript()->prependFile($this->basePath().'/css/assets/js/alert.js');
+?>
+<script>
+	var iden = "";
+	var nombre = "";
+</script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmar Acción</h4>
+            </div>
+            <div class="modal-body alert-warning">
+                <h4>¿Esta seguro que desea eliminar la Especialidad? <strong id="nomb"></strong></h4>
+            </div>
+            <div class="modal-footer">
+                <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button id="eliminar" type="button" class="btn btn-primary">Eliminar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            </script>
+                <ul class="breadcrumb">
+                        <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="<?php echo $this->url('home') ?>">Home</a>
+                        </li>
+                        <li class="active">Lista</li>
+                </ul><!--.breadcrumb-->
+
+                <div class="nav-search" id="nav-search">
+                </div><!--#nav-search-->
+        </div>
+
+        <div class="page-content">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <?php
+                                if ($msg != ""){
+                                        echo '<div class="alert alert-'.$satis.'">',$msg.'
+                                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                                        </div>';
+                                }
+                        ?>
+                        <!--PAGE CONTENT BEGINS-->
+                        <h1>Lista de Especialidades</h1>
+                        <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                    <tr>
+                                            <th>Nombre</th>
+                                            <th></th>
+                                    </tr>
+                            </thead>
+
+                            <tbody>
+                                    <?php
+		foreach($lista as $resul) :
+			$item = $resul["ID"];
+			echo "<tr>";
+			
+			echo "<td>".$resul["NOMBRE"]."</td>";
+			echo '<td>
+                                    <div class="hidden-phone visible-desktop action-buttons">';
+                        ?>
+
+                            <a title="Editar la especialidad!" data-rel="tooltip" data-placement="top" class="green tooltip-success" href="<?php echo $this->url('epecialidades',array('action' => 'edit','id' => $item)) ?>">
+                                    <i class="icon-pencil bigger-130"></i>
+                            </a>
+
+                            <a title="Eliminar esta especialidad!" data-rel="tooltip" data-placement="top" href="#myModal" id="modal" data-toggle="modal" class="red tooltip-warning" onclick="iden = <?php echo $item; ?>; $('#nomb').text('<?php echo $resul["NOMBRE"]; ?>');">
+                                <i class="icon-trash bigger-130"></i>
+                            </a>
+                        <?php
+                         echo '     </div>
+                                </td>';
+                        echo '</tr>';
+		endforeach;
+	?>
+
+                                       
+                                 
+                            </tbody>
+                        </table>
+                        <h3 class="header smaller lighter green">Acciones</h3>
+
+                            <p>
+                                    <a href="<?php echo $this->url('epecialidades',array('action' => 'add')) ?>" class="btn btn-app btn-success">
+                                            <i class="icon-plus-sign bigger-230"></i>
+                                            Agregar
+                                    </a>
+                            </p>
+                                                                
+                    </div>
+                </div>
+        </div><!--/.page-content-->
+
+
+</div><!--/.main-content-->
+        <script src="/css/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="/css/assets/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="/css/assets/js/chosen.jquery.min.js"></script>
+        <script src="/css/assets/js/fuelux/fuelux.spinner.min.js"></script>
+        <script src="/css/assets/js/date-time/daterangepicker.min.js"></script>
+        <script src="/css/assets/js/date-time/moment.min.js"></script>
+        <script src="/css/assets/js/date-time/bootstrap-timepicker.min.js"></script>
+        <script src="/css/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+        <script src="/css/assets/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/css/assets/js/jquery.knob.min.js"></script>
+        <script src="/css/assets/js/jquery.autosize-min.js"></script>
+        <script src="/css/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+        <script src="/css/assets/js/jquery.maskedinput.min.js"></script>
+        <script src="/css/assets/js/bootstrap-tag.min.js"></script>
+<script>
+    $(<?php echo '"#'.$this->activo.'"'; ?>).addClass("active");
+
+    $(".alert").alert();
+    $("#cerrar").click(function(){
+        $('#myModal').modal('hide');
+    });
+    $("#eliminar").click(function(){
+        $(location).attr('href','/especialidades/eliminar/'+iden);
+    });
+    $('[data-rel=tooltip]').tooltip();
+    $('[data-rel=popover]').popover({html:true});
+</script>

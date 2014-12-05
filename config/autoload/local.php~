@@ -1,0 +1,43 @@
+<?php
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * @NOTE: This file is ignored from Git by default with the .gitignore included
+ * in ZendSkeletonApplication. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+// Configurar aqui las variables globales a usar en el sistema
+$dbParams = array(
+	'database'  => 'TESIS',
+	'username'  => 'root',
+	'password'  => 'admin',
+	'hostname'  => 'localhost',
+);
+return array(
+	'service_manager' => array(
+		'factories' => array(
+			'Zend\Db\Adapter\Adapter' => function ($sm) use ($dbParams) {
+				return new Zend\Db\Adapter\Adapter(array(
+					'driver'	=> 'pdo',
+					'dsn'	   => 'mysql:dbname='.$dbParams['database'].';host='.$dbParams['hostname'],
+					'database'  => $dbParams['database'],
+					'username'  => $dbParams['username'],
+					'password'  => $dbParams['password'],
+					'hostname'  => $dbParams['hostname'],
+				));
+			},
+
+			//Declaro una variable global con titulo de la pagina
+			//Puedo llamarla desde un controlador con:
+			// $nombre = $this->getServiceLocator()->get('titleWeb');
+			'titleWeb' => function(){
+				return 'Proyecto de Tesis Jolver';
+			},
+		),
+	),
+);

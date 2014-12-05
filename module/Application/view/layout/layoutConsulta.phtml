@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sistema de Consulta de Tesis UNTES</title>
+
+        <meta name="description" content="Common form elements and layouts" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--basic styles-->
+        <!-- Le styles -->
+        <style>
+            @font-face {
+              font-family: 'Open Sans';
+              font-style: normal;
+              font-weight: 300;
+              src: local('Open Sans Light'), local('OpenSans-Light'), url(<?php echo $this->basePath().'/fonts/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff'; ?>) format('woff');
+            }
+            @font-face {
+              font-family: 'Open Sans';
+              font-style: normal;
+              font-weight: 400;
+              src: local('Open Sans'), local('OpenSans'), url(<?php echo $this->basePath().'/fonts/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff'; ?>) format('woff');
+            }
+        </style>
+        <!-- basic styles -->
+
+        <link href="/css/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/assets/css/font-awesome.min.css" />
+
+        <!--[if IE 7]>
+          <link rel="stylesheet" href="/css/assets/css/font-awesome-ie7.min.css" />
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+
+        <link rel="stylesheet" href="/css/assets/css/jquery-ui-1.10.3.custom.min.css" />
+        <link rel="stylesheet" href="/css/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/css/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/css/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/css/assets/css/daterangepicker.css" />
+        <link rel="stylesheet" href="/css/assets/css/colorpicker.css" />
+
+        <!-- ace styles -->
+
+        <link rel="stylesheet" href="/css/assets/css/ace.min.css" />
+        <link rel="stylesheet" href="/css/assets/css/ace-rtl.min.css" />
+        <link rel="stylesheet" href="/css/assets/css/ace-skins.min.css" />
+
+
+        <!--[if lte IE 8]>
+          <link rel="stylesheet" href="/css/assets/css/ace-ie.min.css" />
+        <![endif]-->
+
+        <!-- inline styles related to this page -->
+
+        <!-- ace settings handler -->
+
+        <script src="/css/assets/js/ace-extra.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+        <!--[if lt IE 9]>
+        <script src="/css/assets/js/html5shiv.js"></script>
+        <script src="/css/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+<?php   
+        echo $this->headScript()->prependFile($this->basePath() . '/js/jquery.min.js')
+        ?>
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='/css/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='/css/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="/css/assets/js/bootstrap.min.js"></script>
+		<script src="/css/assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!-- ace scripts -->
+
+		<script src="/css/assets/js/ace-elements.min.js"></script>
+		<script src="/css/assets/js/ace.min.js"></script>
+
+        <style>
+            .banner0
+            {
+                background-color: #0f8bea;
+                background-image: url('<?php echo $this->basePath().'/img/tesis_banner2.png' ?>');
+                background-repeat: no-repeat;
+                height: 150px;
+                background-position: right;
+            }
+        </style>
+		
+
+
+
+		<!--inline styles related to this page-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	<body>
+		<div class="navbar">
+                    <div class="banner0">
+                        <div class="navbar-inner banner0">
+                            <div class="container-fluid">
+                                <a href="<?php echo $this->url('consultas') ?>" class="navbar-brand">
+                                    <small>
+                                        <img src="<?php echo $this->basePath().'/img/img_1004581.png' ?>" style="max-height: 130px;"/>
+                                            Sistema para Registro y Consulta de Tesis UNTES
+                                    </small>
+                                </a><!--/.brand-->
+                            </div>
+                        </div><!--/.container-fluid-->
+                    </div><!--/.navbar-inner-->
+		</div>
+
+		<div class="main-container" id="main-container">
+                    <script type="text/javascript">
+                        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+                    </script>
+                    <div class="main-container-inner">
+                        <a class="menu-toggler" id="menu-toggler" href="#">
+                            <span class="menu-text"></span>
+                        </a>
+                        <div class="sidebar" id="sidebar">
+                            <br>
+                            <a id="m_1" title="Ver manual del usuario" data-rel="tooltip" data-placement="top" href="manuales/usuario.pdf" class="btn btn-default btn-block" target="_blank">
+                                <i class="icon-question-sign bigger-300"></i>
+                            </a>
+                            
+                        </div>
+                        <!-- Aqui va incluido el contenido de la pagina -->
+                        <?php echo $this->content; ?>
+                        <!-- Aqui termina el contenido de la pagina-->
+                    </div><!-- /.main-container-inner -->
+		</div><!--/.main-container-->
+	</body>
+</html>

@@ -1,0 +1,117 @@
+<?php
+
+namespace Application\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Zend\Db\Adapter\Adapter;
+use Zend\Session\Container;
+
+class TutoresController extends AbstractActionController
+{
+    public function indexAction()
+    {
+        $this->layout('layout/admin');
+        
+    	$this->adaptador = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $result = $this->adaptador->query('select * from TUTORES',Adapter::QUERY_MODE_EXECUTE);
+        
+        return new ViewModel(array(
+                        'lista'		=> $result,
+                    ));
+    }
+    public function addAction() {
+        $this->layout('layout/admin');
+        $request = $this->getRequest();
+    	$this->adaptador = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        //metodo para extraer las categorias
+    	$result = $this->adaptador->query('select * from TUTORES',Adapter::QUERY_MODE_EXECUTE);
+
+        $mensaje = new Container("msg");
+    	$mensaje->msgbox = true;
+    	$mensaje->msgtemporal = "";
+    	$mensaje->satisfactorio = "success";
+        if ($request->isPost()) {
+            $datos = $request->getPost();
+            $cedula     = $datos["cedula"];
+            $nombre     = $datos["nombre"];
+            $tipo       = $datos["tipo"];
+            
+            if ($nombre == ""){
+                    $mensaje->msgtemporal = "Debe escribir el nombre del tutor!";
+                    $mensaje->satisfactorio = "warning";
+                    $mensaje->msgbox = false;
+                    return new ViewModel(array(
+                        'lista'		=> $result,
+                        'msg'		=> $mensaje->msgtemporal,
+                        'satis' 	=> $mensaje->satisfactorio,
+                    ));
+            }
+            $sql = "INSERT INTO TUTORES (CEDULA,NOMBRES,TIPO_TUTOR,USER_CRE)
+    				VALUES('".$cedula."','".$nombre."','".$tipo."','ADMIN')";
+            $this->adaptador->query($sql,Adapter::QUERY_MODE_EXECUTE);
+            $mensaje->msgtemporal = "Se ha agregado el tutor satisfactoriamente";
+            $mensaje->satisfactorio = "success";
+            return $this->redirect()->toRoute('tutores');
+        }
+        return new ViewModel(array(
+            'msg'		=> $mensaje->msgtemporal,
+            'satis'             => $mensaje->satisfactorio,
+    	));
+    }
+    
+    public function editAction() {
+        $this->layout('layout/admin');
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+    	//Si no hay ningun id activo redirecciona a la accion add
+    	if (!$id) {
+    		return $this->redirect()->toRoute('tutores');
+    	}
+        $request = $this->getRequest();
+    	$this->adaptador = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        //metodo para extraer las categorias
+    	$result = $this->adaptador->query('select * from TUTORES WHERE ID = $id',Adapter::QUERY_MODE_EXECUTE);
+
+        $mensaje = new Container("msg");
+    	$mensaje->msgbox = true;
+    	$mensaje->msgtemporal = "";
+    	$mensaje->satisfactorio = "success";
+        if ($request->isPost()) {
+            $datos = $request->getPost();
+            $cedula     = $datos["cedula"];
+            $nombre     = $datos["nombre"];
+            $tipo       = $datos["tipo"];
+            
+            if ($nombre == ""){
+                    $mensaje->msgtemporal = "Debe escribir el nombre del tutor!";
+                    $mensaje->satisfactorio = "warning";
+                    $mensaje->msgbox = false;
+                    return new ViewModel(array(
+                        'lista'		=> $result,
+                        'msg'		=> $mensaje->msgtemporal,
+                        'satis' 	=> $mensaje->satisfactorio,
+                    ));
+            }
+            $sql = "UPDATE TUTORES SET CEDULA = '".$cedula."',NOMBRES = '".$nombre."',TIPO_TUTOR = '".$tipo."'";
+            $this->adaptador->query($sql,Adapter::QUERY_MODE_EXECUTE);
+            $mensaje->msgtemporal = "Se ha editado el tutor ".$nombre." satisfactoriamente";
+            $mensaje->satisfactorio = "success";
+            return $this->redirect()->toRoute('tutores');
+        }
+        return new ViewModel(array(
+            'msg'		=> $mensaje->msgtemporal,
+            'satis'             => $mensaje->satisfactorio,
+    	));
+    }
+    public function eliminarAction(){
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $this->adaptador = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        if(id){
+            $sql ="DELETE FROM TUTORES WHERE ID = $id";
+            $this->adaptador->query($sql,Adapter::QUERY_MODE_EXECUTE);
+        }
+        
+        return $this->redirect()->toRoute('tutores');
+    }
+}
