@@ -1,61 +1,59 @@
-ZendSkeletonApplication
+Sistema de Consulta de Tesis de Grado
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+Ante todo me es necesario dar todo el credito de este proyecto a Dios, sin dejar de lado la institucion en la cual me he formado como Ingeniero "<a href="http://www.unefa.edu.ve/zulia/zulia.php">UNEFA</a>", asi como tambien a mis compañeros de clase.
+Este proyecto esta trabajado bajo la filosofia MVC. El framework utilizado es el Zend en su version 2.2.0dev.
+
 
 
 Installation
 ------------
+Para comenzar, el proceso de instalacion o preparacion para desarrollo esta basado en la documentacion de <a href="http://framework.zend.com/manual/2.0/en/ref/installation.html">Zend Framewor 2</a> sin embargo solo es necesario configurar el host virtual para dar inicio con el proyecto.
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+Pasos para la configuracion en Linux (Debian 7)
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+Primero procedemos a descargarnos la aplicacion desde este repositorio en el directorio donde lo trabajaremos, ejemplo: /var/www/proyecto/.
+Debemos descargar el proyecto y lo descomprimimos alli
+Luego procedemos a la configuracion basica del virtualhost
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+    # sudo nano /etc/apache2/sites-available/sitio.dominio
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
+Alli colocamos el siguiente codigo modificando lo que es de cada quien:
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+    <VirtualHost *:80>
+        ServerName sitio.dominio
+        ServerAlias sitio.dominio
+        DocumentRoot "/var/www/proyecto/public"
+        SetEnv APPLICATION_ENV "development"
+        <Directory "/var/www/proyecto/public">
+            DirectoryIndex index.php
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+    </VirtualHost>
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
+Esto es para los que quieran esta configuracion. Si tienes un ambiente de trabajo puedes hacerlo a tu manera.
+Luego procedemos a configurar el nombre del host en el SO
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+    sudo nano /etc/hosts
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+Alli agregamos en la lista 
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
+    127.0.0.1   sitio.dominio   localhost
+    
+Una vez terminado este paso procedemos a habilitar el sitio con:
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
+    sudo a2ensite sitio.dominio
+    
+Para los que no han trabajado con Zend Framework y no sabes este requerimiento es necesario tener habilitado el modulo de apache rewrite, podemos hacerlo mediante este comando:
 
-Virtual Host
-------------
-Afterwards, set up a virtual host to point to the public/ directory of the
-project and you should be ready to go!
+    sudo a2enmod rewrite
 
-Alternatively — if you are using PHP 5.4 or above — you may start the internal PHP cli-server in the public
-directory:
+al terminar esto procedemos a reiniciar apache:
 
-    cd public
-    php -S 0.0.0.0:8080 index.php
+    sudo service apache2 restart
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
+Listo! ya podemos utilizar o modificar la aplicacion
